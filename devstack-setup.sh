@@ -8,7 +8,6 @@ sudo add-apt-repository universe
 sudo apt update
 sudo apt-get install graphviz -y
 sudo apt-get install python-systemd
-sudo add-apt-repository -r universe
 
 echo "Changing access rights to the devstack folder..."
 sudo chown -R stack /devstack
