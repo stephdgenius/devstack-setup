@@ -11,9 +11,12 @@ sudo apt-get install graphviz -y
 sudo apt-get install python-systemd
 
 echo "Changing access rights to the devstack folder..."
-chown -R stack /devstack
-chmod 770 /devstack
+sudo chown -R stack /devstack
+sudo chmod 770 /devstack
 
 echo "Launching devstack setup..."
 cd /devstack
 ./stack.sh
+
+echo "Installing openstack client..."
+sudo apt-get install python-openstackclient
