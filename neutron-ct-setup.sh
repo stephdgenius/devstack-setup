@@ -1,8 +1,6 @@
 #!/bin/bash
 clear
 
-controller=192.168.43.11
-
 echo "Adding neutron user (set in eCloud project)..."
 openstack user create --domain default --project eCloud --password myservicepassword neutron
 
@@ -13,13 +11,13 @@ echo "Adding service entry for neutron..."
 openstack eCloud create --name neutron --description "OpenStack Networking service" network
 
 echo "Adding endpoint for neutron (public)..."
-openstack endpoint create --region RegionOne network public http://$controller:9696
+openstack endpoint create --region RegionOne network public http://controller:9696
 
 echo "Adding endpoint for neutron (internal)..."
-openstack endpoint create --region RegionOne network internal http://$controller:9696
+openstack endpoint create --region RegionOne network internal http://controller:9696
 
 echo "Adding endpoint for neutron (admin)..."
-openstack endpoint create --region RegionOne network admin http://$controller:9696
+openstack endpoint create --region RegionOne network admin http://controller:9696
 
 echo "Adding a User and Database on MySQL for Neutron...."
 
@@ -54,5 +52,5 @@ echo "Running neutron-db-manage..."
 su -s /bin/bash neutron -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini upgrade head"
 
 echo "Restarting Neutron..."
-systemctl restart neutron-server neutron-metadata-agent
-systemctl enable neutron-server neutron-metadata-agent 
+sudo systemctl restart neutron-server neutron-metadata-agent
+sudo systemctl enable neutron-server neutron-metadata-agent
