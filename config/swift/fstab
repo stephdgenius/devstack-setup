@@ -1,0 +1,4 @@
+UUID=af62ce49-5be0-11e9-9328-000c29b31bbd / ext4 defaults 0 0
+UUID=af62ce48-5be0-11e9-9328-000c29b31bbd /boot ext4 defaults 0 0
+/swap.img	none	swap	sw	0	0
+/dev/sdb               /srv/node/device0       xfs     noatime,nodiratime,nobarrier 0 0
