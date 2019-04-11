@@ -6,7 +6,7 @@ apt -y install manila-share python-pymysql
 
 echo "Configuring Manila..."
 mv /etc/manila/manila.conf /etc/manila/manila.conf.org
-cp /media/usb/config/manila/manila-st.conf /etc/manila/manila.conf
+cp /devstack-setup/config/manila/manila-st.conf /etc/manila/manila.conf
 
 echo "Changing right access..."
 chmod 644 /etc/manila/manila.conf 

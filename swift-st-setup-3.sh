@@ -5,11 +5,11 @@ echo "Changing right access..."
 chown swift. /etc/swift/*.gz 
 
 echo "Configuring Swift and Rsync in Storage Node..."
-sudo cp /media/usb/config/swift/swift.conf /etc/swift/swift.conf
-sudo cp /media/usb/config/swift/account-server.conf /etc/swift/account-server.conf
-sudo cp /media/usb/config/swift/container-server.conf /etc/swift/container-server.conf
-sudo cp /media/usb/config/swift/object-server.conf /etc/swift/object-server.conf
-sudo cp /media/usb/config/swift/rsyncd.conf /etc/rsyncd.conf
+sudo cp /devstack-setup/config/swift/swift.conf /etc/swift/swift.conf
+sudo cp /devstack-setup/config/swift/account-server.conf /etc/swift/account-server.conf
+sudo cp /devstack-setup/config/swift/container-server.conf /etc/swift/container-server.conf
+sudo cp /devstack-setup/config/swift/object-server.conf /etc/swift/object-server.conf
+sudo cp /devstack-setup/config/swift/rsyncd.conf /etc/rsyncd.conf
 
 echo "Enable Rsync..."
 sudo nano /etc/default/rsync

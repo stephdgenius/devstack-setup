@@ -2,7 +2,7 @@
 clear
 # Copie du fichier de configuration hosts
 echo "Configuring domain name..."
-sudo cp /media/usb/config/hosts /etc/hosts
+sudo cp /devstack-setup/config/hosts /etc/hosts
 
 # Téchargement de DevStack
 echo "Downloading devstack..."
@@ -10,7 +10,7 @@ cd /
 sudo git clone https://github.com/openstack-dev/devstack.git -b stable/rocky devstack/
 
 # Copie du fichier de configuration de DevStack
-sudo cp /media/usb/config/local.conf /devstack/local.conf
+sudo cp /devstack-setup/config/local.conf /devstack/local.conf
 
 echo "Creating new user..."
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 clear
 
-# Copie du fichier de configuration de DevStack
-sudo cp /media/usb/config/local.conf /devstack/local.conf
+# Copie du fichier de configuration hosts
+echo "Configuring domain name..."
+sudo cp /devstack-setup/config/hosts /etc/hosts

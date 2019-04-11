@@ -26,8 +26,8 @@ sudo apt -y install swift swift-proxy python-swiftclient python-keystonemiddlewa
 
 echo "Configuring Swift Proxy..."
 sudo mkdir /etc/swift 
-sudo cp /media/usb/config/swift/proxy-server.conf /etc/swift/proxy-server.conf
-sudo cp /media/usb/config/swift/swift.conf /etc/swift/swift.conf
+sudo cp /devstack-setup/config/swift/proxy-server.conf /etc/swift/proxy-server.conf
+sudo cp /devstack-setup/config/swift/swift.conf /etc/swift/swift.conf
 
 echo "Changing right access..."
 chown -R swift. /etc/swift
@@ -53,7 +53,7 @@ swift-ring-builder account.builder rebalance
 swift-ring-builder container.builder rebalance
 swift-ring-builder object.builder rebalance
 
-cd /media/usb
+cd /devstack-setup
 
 echo "Changing right access..."
 chown swift. /etc/swift/*.gz

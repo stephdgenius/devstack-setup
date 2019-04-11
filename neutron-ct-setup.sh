@@ -39,9 +39,9 @@ sudo apt -y install neutron-server neutron-metadata-agent neutron-plugin-ml2 pyt
 
 echo "Configuring Neutron Server..."
 mv /etc/neutron/neutron.conf /etc/neutron/neutron.conf.org
-cp /media/usb/config/neutron/neutron-ct.conf /etc/neutron/neutron.conf
-cp /media/usb/config/neutron/metadata_agent.ini /etc/neutron/metadata_agent.ini
-cp /media/usb/config/neutron/ml2_conf.ini /etc/neutron/plugins/ml2/ml2_conf.ini
+cp /devstack-setup/config/neutron/neutron-ct.conf /etc/neutron/neutron.conf
+cp /devstack-setup/config/neutron/metadata_agent.ini /etc/neutron/metadata_agent.ini
+cp /devstack-setup/config/neutron/ml2_conf.ini /etc/neutron/plugins/ml2/ml2_conf.ini
 
 echo "Changing right access..."
 chmod 640 /etc/neutron/neutron.conf
