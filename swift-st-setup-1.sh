@@ -9,3 +9,5 @@ sudo mkfs.xfs -i size=1024 -s size=4096 /dev/sdb
 mkdir -p /srv/node/device0
 mount -o noatime,nodiratime,nobarrier /dev/sdb /srv/node/device0
 chown -R swift. /srv/node
+sudo cp /media/usb/config/swift/fstab /etc/fstab
+sudo nano /etc/fstab
