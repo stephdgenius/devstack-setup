@@ -3,15 +3,15 @@ clear
 
 controller=192.168.43.11
 
-echo "Adding manila user (set in eCloud project)..."
-openstack user create --domain default --project eCloud --password myservicepassword manila
+echo "Adding manila user (set in service project)..."
+openstack user create --domain default --project service --password myservicepassword manila
 
 echo "Adding manila user in admin role..."
-openstack role add --project eCloud --user manila admin
+openstack role add --project service --user manila admin
 
 echo "Adding service entry for manila..."
-openstack eCloud create --name manila --description "OpenStack Shared Filesystem" share
-openstack eCloud create --name manilav2 --description "OpenStack Shared Filesystem V2" sharev2
+openstack service create --name manila --description "OpenStack Shared Filesystem" share
+openstack service create --name manilav2 --description "OpenStack Shared Filesystem V2" sharev2
 
 echo "Adding endpoint for manila (public)..."
 openstack endpoint create --region RegionOne share public http://$controller:8786/v1/%\(tenant_id\)s

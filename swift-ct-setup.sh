@@ -3,14 +3,14 @@ clear
 
 controller=192.168.43.11
 
-echo "Adding swift user (set in eCloud project)..."
-openstack user create --domain default --project eCloud --password myservicepassword swift
+echo "Adding swift user (set in service project)..."
+openstack user create --domain default --project service --password myservicepassword swift
 
 echo "Adding swift user in admin role..."
-openstack role add --project eCloud --user swift admin
+openstack role add --project service --user swift admin
 
 echo "Adding service entry for swift..."
-openstack eCloud create --name swift --description "OpenStack Object Storage" object-store
+openstack service create --name swift --description "OpenStack Object Storage" object-store
 
 echo "Adding endpoint for swift (public)..."
 openstack endpoint create --region RegionOne object-store public http://$controller:8080/v1/AUTH_%\(tenant_id\)s 

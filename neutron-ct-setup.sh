@@ -1,14 +1,14 @@
 #!/bin/bash
 clear
 
-echo "Adding neutron user (set in eCloud project)..."
-openstack user create --domain default --project eCloud --password myservicepassword neutron
+echo "Adding neutron user (set in service project)..."
+openstack user create --domain default --project service --password myservicepassword neutron
 
 echo "Adding neutron user in admin role..."
-openstack role add --project eCloud --user neutron admin
+openstack role add --project service --user neutron admin
 
 echo "Adding service entry for neutron..."
-openstack eCloud create --name neutron --description "OpenStack Networking service" network
+openstack service create --name neutron --description "OpenStack Networking service" network
 
 echo "Adding endpoint for neutron (public)..."
 openstack endpoint create --region RegionOne network public http://controller:9696
@@ -36,20 +36,20 @@ echo "Installing Neutron..."
 sudo apt -y install neutron-server neutron-metadata-agent neutron-plugin-ml2 python-neutronclient
 
 echo "Configuring Neutron Server..."
-mv /etc/neutron/neutron.conf /etc/neutron/neutron.conf.org
-cp /devstack-setup/config/neutron/neutron-ct.conf /etc/neutron/neutron.conf
-cp /devstack-setup/config/neutron/metadata_agent.ini /etc/neutron/metadata_agent.ini
-cp /devstack-setup/config/neutron/ml2_conf.ini /etc/neutron/plugins/ml2/ml2_conf.ini
+sudo mv /etc/neutron/neutron.conf /etc/neutron/neutron.conf.org
+sudo cp /devstack-setup/config/neutron/neutron-ct.conf /etc/neutron/neutron.conf
+sudo cp /devstack-setup/config/neutron/metadata_agent.ini /etc/neutron/metadata_agent.ini
+sudo cp /devstack-setup/config/neutron/ml2_conf.ini /etc/neutron/plugins/ml2/ml2_conf.ini
 
 echo "Changing right access..."
-chmod 640 /etc/neutron/neutron.conf
-chgrp neutron /etc/neutron/neutron.conf
+sudo chmod 640 /etc/neutron/neutron.conf
+sudo chgrp neutron /etc/neutron/neutron.conf
 
 echo "Creating symbolic link..."
-ln -s /etc/neutron/plugins/ml2/ml2_conf.ini /etc/neutron/plugin.ini
+sudo ln -s /etc/neutron/plugins/ml2/ml2_conf.ini /etc/neutron/plugin.ini
 
 echo "Running neutron-db-manage..."
-su -s /bin/bash neutron -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini upgrade head"
+sudo su -s /bin/bash neutron -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini upgrade head"
 
 echo "Restarting Neutron..."
 sudo systemctl restart neutron-server neutron-metadata-agent
