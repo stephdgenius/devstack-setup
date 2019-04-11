@@ -6,7 +6,6 @@ sudo apt -y install software-properties-common
 sudo add-apt-repository cloud-archive:rocky
 sudo add-apt-repository universe
 sudo apt update
-sudo apt -y upgrade 
 sudo apt-get install graphviz -y
 sudo apt-get install python-systemd
 sudo add-apt-repository -r universe
