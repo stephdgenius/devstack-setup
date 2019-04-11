@@ -13,6 +13,9 @@ echo "Changing access rights to the devstack folder..."
 sudo chown -R stack /devstack
 sudo chmod 770 /devstack
 
+# Copie du fichier de configuration de DevStack
+sudo cp /devstack-setup/config/local.conf /devstack/local.conf
+
 echo "Launching devstack setup..."
 cd /devstack
 ./stack.sh
