@@ -16,6 +16,3 @@ sudo chmod 770 /devstack
 echo "Launching devstack setup..."
 cd /devstack
 ./stack.sh
-
-echo "Installing openstack client..."
-sudo apt-get install python-openstackclient
