@@ -43,11 +43,11 @@ if [ -f /root/.my.cnf ]; then
 else
     echo "Please enter root user MySQL password!"
     read rootpasswd
-    mysql -u root -p ${rootpasswd} -e "CREATE DATABASE ${MANILA_DBNAME};"
-    mysql -u root -p ${rootpasswd} -e "CREATE USER ${MANILA_DBNAME}@localhost IDENTIFIED BY '${MANILA_DBPASS}';"
-    mysql -u root -p ${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${MANILA_DBNAME}.* TO '${MANILA_DBNAME}'@'localhost' IDENTIFIED BY '$MANILA_DBPASS';"
-    mysql -u root -p ${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${MANILA_DBNAME}.* TO '${MANILA_DBNAME}'@'%' IDENTIFIED BY '$MANILA_DBPASS';"
-    mysql -u root -p ${rootpasswd} -e "FLUSH PRIVILEGES;"
+    mysql -u root -p -e "CREATE DATABASE ${MANILA_DBNAME};"
+    mysql -u root -p -e "CREATE USER ${MANILA_DBNAME}@localhost IDENTIFIED BY '${MANILA_DBPASS}';"
+    mysql -u root -p -e "GRANT ALL PRIVILEGES ON ${MANILA_DBNAME}.* TO '${MANILA_DBNAME}'@'localhost' IDENTIFIED BY '$MANILA_DBPASS';"
+    mysql -u root -p -e "GRANT ALL PRIVILEGES ON ${MANILA_DBNAME}.* TO '${MANILA_DBNAME}'@'%' IDENTIFIED BY '$MANILA_DBPASS';"
+    mysql -u root -p -e "FLUSH PRIVILEGES;"
 fi
 
 echo "Installing Manila services..."
