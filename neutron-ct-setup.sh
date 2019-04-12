@@ -24,13 +24,10 @@ echo "Adding a User and Database on MySQL for Neutron...."
 NEUTRON_DBNAME="neutron"
 NEUTRON_DBPASS="password"
 
-# If /root/.my.cnf exists then it won't ask for root password
-if [ -f /root/.my.cnf ]; then
-
-    mysql -e "CREATE DATABASE ${NEUTRON_DBNAME};"
-    mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
-    mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
-    mysql -e "FLUSH PRIVILEGES;"
+mysql -e "CREATE DATABASE ${NEUTRON_DBNAME};"
+mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
+mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
+mysql -e "FLUSH PRIVILEGES;"
 
 echo "Installing Neutron..."
 sudo apt -y install neutron-server neutron-metadata-agent neutron-plugin-ml2 python-neutronclient
