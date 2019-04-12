@@ -35,9 +35,9 @@ cd /etc/swift
 sudo rm -f account.builder account.ring.gz backups/account.builder backups/account.ring.gz
 sudo rm -f container.builder container.ring.gz backups/container.builder backups/container.ring.gz
 sudo rm -f object.builder object.ring.gz backups/object.builder backups/object.ring.gz
-sudo swift-ring-builder account.builder create 12 3 1
-sudo swift-ring-builder container.builder create 12 3 1
-sudo swift-ring-builder object.builder create 12 3 1
+sudo swift-ring-builder account.builder create 12 2 1
+sudo swift-ring-builder container.builder create 12 2 1
+sudo swift-ring-builder object.builder create 12 2 1
 
 sudo swift-ring-builder account.builder add r0z0-192.168.43.21:6002/device0 100
 sudo swift-ring-builder container.builder add r0z0-192.168.43.21:6001/device0 100
