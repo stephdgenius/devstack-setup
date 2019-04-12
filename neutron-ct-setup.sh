@@ -11,13 +11,13 @@ echo "Adding service entry for neutron..."
 openstack service create --name neutron --description "OpenStack Networking service" network
 
 echo "Adding endpoint for neutron (public)..."
-openstack endpoint create --region RegionOne network public http://controller:9696
+openstack endpoint create --region RegionOne network public http://192.168.43.11:9696
 
 echo "Adding endpoint for neutron (internal)..."
-openstack endpoint create --region RegionOne network internal http://controller:9696
+openstack endpoint create --region RegionOne network internal http://192.168.43.11:9696
 
 echo "Adding endpoint for neutron (admin)..."
-openstack endpoint create --region RegionOne network admin http://controller:9696
+openstack endpoint create --region RegionOne network admin http://192.168.43.11:9696
 
 echo "Adding a User and Database on MySQL for Neutron...."
 
