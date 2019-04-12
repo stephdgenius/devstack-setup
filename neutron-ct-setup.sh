@@ -21,10 +21,28 @@ openstack endpoint create --region RegionOne network admin http://controller:969
 
 echo "Adding a User and Database on MySQL for Neutron...."
 
-sudo mysql -e "CREATE DATABASE neutron;"
-sudo mysql -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY 'password';"
-sudo mysql -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY 'password';"
-sudo mysql -e "FLUSH PRIVILEGES;"
+NEUTRON_DBNAME="neutron"
+NEUTRON_DBPASS="password"
+
+# If /root/.my.cnf exists then it won't ask for root password
+if [ -f /root/.my.cnf ]; then
+
+    mysql -e "CREATE DATABASE ${NEUTRON_DBNAME};"
+    mysql -e "CREATE USER ${NEUTRON_DBNAME}@localhost IDENTIFIED BY '${NEUTRON_DBPASS}';"
+    mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
+    mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
+    mysql -e "FLUSH PRIVILEGES;"
+
+# If /root/.my.cnf doesn't exist then it'll ask for root password   
+else
+    echo "Please enter root user MySQL password!"
+    read rootpasswd
+    mysql -uroot -p${rootpasswd} -e "CREATE DATABASE ${NEUTRON_DBNAME};"
+    mysql -uroot -p${rootpasswd} -e "CREATE USER ${NEUTRON_DBNAME}@localhost IDENTIFIED BY '${NEUTRON_DBPASS}';"
+    mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
+    mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
+    mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;"
+fi
 
 echo "Installing Neutron..."
 sudo apt -y install neutron-server neutron-metadata-agent neutron-plugin-ml2 python-neutronclient

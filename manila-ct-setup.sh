@@ -34,9 +34,21 @@ MANILA_DBPASS="password"
 if [ -f /root/.my.cnf ]; then
 
     mysql -e "CREATE DATABASE ${MANILA_DBNAME};"
+    mysql -e "CREATE USER ${MANILA_DBNAME}@localhost IDENTIFIED BY '${MANILA_DBPASS}';"
     mysql -e "GRANT ALL PRIVILEGES ON ${MANILA_DBNAME}.* TO '${MANILA_DBNAME}'@'localhost' IDENTIFIED BY '$MANILA_DBPASS';"
     mysql -e "GRANT ALL PRIVILEGES ON ${MANILA_DBNAME}.* TO '${MANILA_DBNAME}'@'%' IDENTIFIED BY '$MANILA_DBPASS';"
     mysql -e "FLUSH PRIVILEGES;"
+
+# If /root/.my.cnf doesn't exist then it'll ask for root password   
+else
+    echo "Please enter root user MySQL password!"
+    read rootpasswd
+    mysql -uroot -p${rootpasswd} -e "CREATE DATABASE ${MANILA_DBNAME};"
+    mysql -uroot -p${rootpasswd} -e "CREATE USER ${MANILA_DBNAME}@localhost IDENTIFIED BY '${MANILA_DBPASS}';"
+    mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${MANILA_DBNAME}.* TO '${MANILA_DBNAME}'@'localhost' IDENTIFIED BY '$MANILA_DBPASS';"
+    mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${MANILA_DBNAME}.* TO '${MANILA_DBNAME}'@'%' IDENTIFIED BY '$MANILA_DBPASS';"
+    mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;"
+fi
 
 echo "Installing Manila services..."
 sudo apt -y install manila-api manila-scheduler python-manilaclient
