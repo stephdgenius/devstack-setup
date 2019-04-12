@@ -17,8 +17,10 @@ sudo useradd -s /bin/bash -d /opt/stack -m stack
 # Attribution des privilèges sudo a l'utilisateur précement crée
 echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
 
+sudo mkdir /home/stack
+
 # Ajout de l'utilisateur au groupe sudo
 sudo usermod -a -G sudo stack
 
 # Creation du dossier Home pour le nouvel utilisateur
-sudo usermod -d /home/stack
+sudo usermod -d /home/stack stack
