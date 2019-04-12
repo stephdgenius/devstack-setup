@@ -28,7 +28,7 @@ sudo cp /devstack-setup/config/swift/proxy-server.conf /etc/swift/proxy-server.c
 sudo cp /devstack-setup/config/swift/swift.conf /etc/swift/swift.conf
 
 echo "Changing right access..."
-chown -R swift. /etc/swift
+sudo chown -R swift. /etc/swift
 
 echo "Configuring Swift Ring files..."
 cd /etc/swift
