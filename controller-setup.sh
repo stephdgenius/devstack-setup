@@ -19,6 +19,8 @@ echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
 
 sudo mkdir /home/stack
 
+sudo chown -R stack /home/stack
+
 # Ajout de l'utilisateur au groupe sudo
 sudo usermod -a -G sudo stack
 
