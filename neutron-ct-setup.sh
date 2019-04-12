@@ -21,12 +21,9 @@ openstack endpoint create --region RegionOne network admin http://controller:969
 
 echo "Adding a User and Database on MySQL for Neutron...."
 
-NEUTRON_DBNAME="neutron"
-NEUTRON_DBPASS="password"
-
-sudo mysql -e "CREATE DATABASE ${NEUTRON_DBNAME};"
-sudo mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
-sudo mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
+sudo mysql -e "CREATE DATABASE neutron;"
+sudo mysql -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY 'password';"
+sudo mysql -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY 'password';"
 sudo mysql -e "FLUSH PRIVILEGES;"
 
 echo "Installing Neutron..."
