@@ -28,9 +28,7 @@ NEUTRON_DBPASS="password"
 if [ -f /root/.my.cnf ]; then
 
     mysql -u root mysql
-    mysql -e "DROP DATABASE ${NEUTRON_DBNAME};"
     mysql -e "CREATE DATABASE ${NEUTRON_DBNAME};"
-    mysql -e "DROP USER ${NEUTRON_DBNAME};"
     mysql -e "CREATE USER ${NEUTRON_DBNAME}@localhost IDENTIFIED BY '${NEUTRON_DBPASS}';"
     mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
     mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
@@ -40,13 +38,11 @@ if [ -f /root/.my.cnf ]; then
 else
     echo "Please enter root user MySQL password!"
     read rootpasswd
-    mysql -u root -p -e "DROP DATABASE ${NEUTRON_DBNAME};"
-    mysql -u root -p -e "CREATE DATABASE ${NEUTRON_DBNAME};"
-    mysql -u root -p -e "DROP USER ${NEUTRON_DBNAME};"
-    mysql -u root -p -e "CREATE USER ${NEUTRON_DBNAME}@localhost IDENTIFIED BY '${NEUTRON_DBPASS}';"
-    mysql -u root -p -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
-    mysql -u root -p -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
-    mysql -u root -p -e "FLUSH PRIVILEGES;"
+    mysql -uroot -p ${rootpasswd} -e "CREATE DATABASE ${NEUTRON_DBNAME};"
+    mysql -uroot -p ${rootpasswd} -e "CREATE USER ${NEUTRON_DBNAME}@localhost IDENTIFIED BY '${NEUTRON_DBPASS}';"
+    mysql -uroot -p ${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
+    mysql -uroot -p ${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
+    mysql -uroot -p ${rootpasswd} -e "FLUSH PRIVILEGES;"
 fi
 
 echo "Installing Neutron..."
