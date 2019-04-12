@@ -27,9 +27,9 @@ NEUTRON_DBPASS="password"
 # If /root/.my.cnf exists then it won't ask for root password
 if [ -f /root/.my.cnf ]; then
 
-    mysql -e "DROP DATABASE [IF EXISTS] ${NEUTRON_DBNAME};"
+    mysql -e "DROP DATABASE ${NEUTRON_DBNAME};"
     mysql -e "CREATE DATABASE ${NEUTRON_DBNAME};"
-    mysql -e "DROP USER [IF EXISTS] ${NEUTRON_DBNAME};"
+    mysql -e "DROP USER ${NEUTRON_DBNAME};"
     mysql -e "CREATE USER ${NEUTRON_DBNAME}@localhost IDENTIFIED BY '${NEUTRON_DBPASS}';"
     mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
     mysql -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
@@ -39,9 +39,9 @@ if [ -f /root/.my.cnf ]; then
 else
     echo "Please enter root user MySQL password!"
     read rootpasswd
-    mysql -uroot -p${rootpasswd} -e "DROP DATABASE [IF EXISTS] ${NEUTRON_DBNAME};"
+    mysql -uroot -p${rootpasswd} -e "DROP DATABASE ${NEUTRON_DBNAME};"
     mysql -uroot -p${rootpasswd} -e "CREATE DATABASE ${NEUTRON_DBNAME};"
-    mysql -uroot -p${rootpasswd} -e "DROP USER [IF EXISTS] ${NEUTRON_DBNAME};"
+    mysql -uroot -p${rootpasswd} -e "DROP USER ${NEUTRON_DBNAME};"
     mysql -uroot -p${rootpasswd} -e "CREATE USER ${NEUTRON_DBNAME}@localhost IDENTIFIED BY '${NEUTRON_DBPASS}';"
     mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS';"
     mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${NEUTRON_DBNAME}.* TO '${NEUTRON_DBNAME}'@'%' IDENTIFIED BY '$NEUTRON_DBPASS';"
